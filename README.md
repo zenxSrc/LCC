@@ -1,88 +1,69 @@
-# Lenovo Battery Conservation Mode Controller
+# Lenovo Battery Conservation Mode Controller (LCC)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+[![Stars](https://img.shields.io/github/stars/zenxSrc/LCC?style=social)](https://github.com/zenxSrc/LCC)  
+[![Forks](https://img.shields.io/github/forks/zenxSrc/LCC?style=social)](https://github.com/zenxSrc/LCC)  
+[![Language](https://img.shields.io/badge/Java%20%2B%20Shell-007396?logo=java&logoColor=white)](https://github.com/zenxSrc/LCC)
 
-A utility to control the battery conservation mode on Lenovo laptops. This tool provides both a terminal-based interface and a Java-based GUI to easily manage your laptop's battery conservation mode.
+**Easily toggle Lenovo's Battery Conservation Mode on Linux – keep your battery healthy at 55-60% charge!**
 
-## What is Battery Conservation Mode?
-
-Battery Conservation Mode is a Lenovo feature that limits battery charging to 55-60% of its capacity to extend the battery's lifespan. This is particularly useful when your laptop is primarily used while plugged into AC power.
-
-## Prerequisites
-
-- A Lenovo laptop with conservation mode support
-- Linux operating system
-- Root privileges (sudo access)
-
-## Available Versions
-
-### 1. Terminal-Based Version (toggle_conservation.sh)
-
-This version provides a text-based user interface (TUI) that works in any terminal.
-
-#### Requirements
-- `dialog` (Install this manually on all devices except those running Ubuntu/Debian)
-
-#### How to Use
-
-1. Clone the repo :
-   
-   git clone https://github.com/humlink-dev/LCC.git
-
-3. cd ConservationMode-Lenovo-
-
-4. sudo bash -x toggle_conservation.sh
-
-5. Navigate the menu:
-   - Use ↑↓ arrow keys to select options
-   - Press Enter to confirm selection
-   - Press ESC or select Cancel to exit
-
+A lightweight utility (GUI + TUI) strictly for Lenovo laptops on Linux to enable/disable Conservation Mode, which caps charging to extend battery lifespan when mostly plugged in.
 
 ## Features
+- **Simple toggle** between enabled/disabled states  
+- **Real-time status** display with color indicators  
+- **Dual interfaces**: Modern Java Swing GUI + classic terminal TUI (using dialog)  
+- Root privilege check & error handling  
+- Minimal dependencies  
 
-- Real-time status display
-- Easy toggle between enabled/disabled states
-- Color-coded status indicators
-- Error handling with informative messages
-- Root privilege checking
-- Automatic dependency installation (for terminal version)
+## Prerequisites
+- Lenovo laptop with Conservation Mode support (most IdeaPad/Legion series)  
+- Linux kernel with ideapad_acpi driver  
+- Java 8+ (for GUI)  
+- `dialog` package (for TUI – install via apt/yum/pacman)  
+- sudo/root access  
+
+Check if your model supports it:  
+```bash
+ls /sys/bus/platform/drivers/ideapad_acpi/*/conservation_mode
+```
+
+## Installation
+- Clone the repo
+```
+git clone https://github.com/zenxSrc/LCC.git
+cd LCC
+```
+## For GUI (recommended):
+Compile and run the Java app
+```
+javac BatteryConservationController.java
+sudo java BatteryConservationController
+```
+
+## For Terminal TUI:
+```
+sudo bash toggle_conservation.sh
+```
+
+## Usage
+- Launch GUI → Click toggle button → Enjoy longer battery life
+- In TUI → Arrow keys to select Enable/Disable → Enter to apply
+- Changes apply instantly; check battery icon or run cat /sys/.../conservation_mode (1 = enabled).
+
+## Supported Models
+Tested on various IdeaPad & Legion models – should work on any Lenovo using ideapad_acpi VPC2004 conservation_mode file. Report issues for unsupported ones!
 
 ## Troubleshooting
 
-1. "Permission denied" error
-   - Make sure to run the script with sudo
-   - Check if the script is executable
-
-2. "Conservation mode path not found" error
-   - Verify that your laptop is a Lenovo model with conservation mode support
-   - Check if the conservation mode file exists at:
-     ```
-     /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
-     ```
-
-3. Java version not running
-   - Ensure Java is installed:
-     ```bash
-     java -version
-     ```
-   - Install Java if needed:
-     ```bash
-     sudo apt-get install default-jdk
-     ```
-
-## Safety Notes
-
-- The script requires root privileges as it modifies system files
-- Always ensure your laptop is plugged in when changing conservation mode settings
-- Changes take effect immediately but may require a few minutes to be reflected in the battery status
+- Path not found? → Not supported on your model or wrong driver
+- Java issues? → Install default-jdk / openjdk-17-jdk
+- Permission denied? → Always use sudo
 
 ## Contributing
-
-Feel free to submit issues and enhancement requests!
+Pull requests welcome! Feel free to add auto-compilation, packaging (AUR/Flatpak), more models testing, or a tray icon version.
 
 ## License
+MIT License – free to use, modify, distribute.
 
-This project is open source and available under the MIT License.
-
-## Disclaimer
-
-This tool directly modifies system files. While it includes safety checks, use it at your own risk. Always ensure your important work is saved before modifying system settings.
+Made with ❤️ for Linux Lenovo users.
+# Star ⭐ if it saves your battery!
